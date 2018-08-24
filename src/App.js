@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { BrowserRouter, Route } from "react-router-dom";
-import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import "./App.css";
 import Header from "./components/Header";
 import Login from "./components/Login";
@@ -11,11 +10,13 @@ class App extends Component {
     return (
       <div className="App">
         <BrowserRouter>
-          <MuiThemeProvider>
+          <div>
             <Header />
-            <Route exact path="/" component={Landing} />
-            <Route exact path="/login" component={Login} />
-          </MuiThemeProvider>
+            <div className="container">
+              <Route exact path="/" component={Landing} />
+              <Route exact path="/login" component={Login} />
+            </div>
+          </div>
         </BrowserRouter>
       </div>
     );
