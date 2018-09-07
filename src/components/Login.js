@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import { BrowserRouter, Route } from "react-router-dom";
+import React, { Component } from 'react';
+
 import {
   Button,
   Card,
@@ -8,9 +8,9 @@ import {
   FormGroup,
   Input,
   Label
-} from "reactstrap";
+} from 'reactstrap';
 
-class Login extends React.Component {
+class Login extends Component {
   constructor(props, context) {
     super(props, context);
 
