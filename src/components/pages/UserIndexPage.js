@@ -9,13 +9,9 @@ class UserIndexPage extends Component {
       users: []
     };
   }
-
-  async componentDidMount () {
-    // const users = await User.all();
-  }
-
+  
   renderUsers() {
-    return this.props.data.users.map(user => {
+    return this.props.data.Users.map(user => {
       return (
         <li key={user.id}>{user.username}</li>
       );
@@ -43,7 +39,7 @@ class UserIndexPage extends Component {
 
 const query = gql`
   {
-    users {
+    Users {
       id
       username
       email
@@ -52,4 +48,3 @@ const query = gql`
 `
 
 export default graphql(query)(UserIndexPage);
-// export default UserIndexPage;
