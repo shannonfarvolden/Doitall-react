@@ -4,10 +4,10 @@ import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo';
 import { HttpLink } from 'apollo-link-http';
 import './App.css';
-import Header from './Header';
-import Login from './Login';
-import Landing from './Landing';
-import UserIndexPage from './pages/UserIndexPage';
+import Header from './components/Header';
+import Login from './components/Login';
+import Landing from './components/Landing';
+import UserIndexPage from './components/pages/UserIndexPage';
 
 const link = new HttpLink({ uri: '/graphql' });
 
