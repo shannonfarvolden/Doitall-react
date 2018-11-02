@@ -1,6 +1,16 @@
 import React, { Component } from 'react';
 import gql from 'graphql-tag';
-import { graphql } from 'react-apollo';
+import { Query } from 'react-apollo';
+
+const GET_USERS = gql`
+  {
+    Users {
+      id
+      username
+      email
+    }
+  }
+`
 
 class UserIndex extends Component {
   constructor (props) {
@@ -18,33 +28,25 @@ class UserIndex extends Component {
     })
   }
 
-  render () {
-    console.log("props", this.props.data)
-    if(this.props.data.loading) {
-      return (<div>loading...</div>)
-    }
-
-
-
-    return (
-      <main className="UserIndex">
-        <h2>Users</h2>
-        <ul>
-          {this.renderUsers()}
-        </ul>
-      </main>
-    );
+  render() {
+    return(
+      <Query query={GET_USERS}>
+        {({ loading, error, data }) => {
+          if (loading) return (<div>loading...</div>);
+          if (error) return (<div>error...</div>);
+          return (
+            <main className="UserIndex">
+              <h2>Users</h2>
+              <ul>
+                {data.Users.map(user => (
+                  <li key={user.id}>{user.username}</li>
+                ))}
+              </ul>
+            </main>
+          );
+        }}
+      </Query>
+    )
   }
 }
-
-const query = gql`
-  {
-    Users {
-      id
-      username
-      email
-    }
-  }
-`
-
-export default graphql(query)(UserIndex);
+export default UserIndex;
