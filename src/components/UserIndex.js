@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 import gql from 'graphql-tag';
 import { graphql } from 'react-apollo';
 
-class UserIndexPage extends Component {
+class UserIndex extends Component {
   constructor (props) {
     super(props);
     this.state = {
       users: []
     };
   }
-  
+
   renderUsers() {
     return this.props.data.Users.map(user => {
       return (
@@ -27,7 +27,7 @@ class UserIndexPage extends Component {
 
 
     return (
-      <main className="UserIndexPage">
+      <main className="UserIndex">
         <h2>Users</h2>
         <ul>
           {this.renderUsers()}
@@ -47,4 +47,4 @@ const query = gql`
   }
 `
 
-export default graphql(query)(UserIndexPage);
+export default graphql(query)(UserIndex);

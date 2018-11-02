@@ -7,7 +7,7 @@ import './App.css';
 import Header from './components/Header';
 import Login from './components/Login';
 import Landing from './components/Landing';
-import UserIndexPage from './components/pages/UserIndexPage';
+import UserIndex from './components/UserIndex';
 
 const link = new HttpLink({ uri: '/graphql' });
 
@@ -29,7 +29,7 @@ class App extends Component {
               <div className="container">
                 <Route exact path="/" component={Landing} />
                 <Route exact path="/login" component={Login} />
-                <Route exact path="/users" component={UserIndexPage} />
+                <Route exact path="/users" component={UserIndex} />
               </div>
             </div>
           </BrowserRouter>
