@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-
+import gql from 'graphql-tag';
+import { Mutation } from 'react-apollo';
 import {
   Button,
   Card,
@@ -10,47 +11,79 @@ import {
   Label
 } from 'reactstrap';
 
+const LOGIN = gql`
+  mutation Login ($username: String!, $password: String!) {
+    login (username: $username, password: $password)
+  }
+`
+
 class Login extends Component {
   constructor(props, context) {
     super(props, context);
+    this.state = {
+      username: "",
+      password: ""
+    }
 
     this.handleChange = this.handleChange.bind(this);
+    this.storeJWT = this.storeJWT.bind(this);
+  }
 
-    this.state = {
-      value: ""
+  storeJWT (jwt) {
+    localStorage.setItem('jwt', jwt.login);
+    this.props.history.push('/users');
+  }
+
+  handleChange (name) {
+    return (e) => {
+      this.setState({
+        [name]: e.currentTarget.value
+      })
     };
   }
-  handleChange(e) {
-    this.setState({ value: e.target.value });
-  }
-  render() {
+
+  render () {
+    const { username, password } = this.state;
     return (
-      <Card body>
-        <CardTitle>Login</CardTitle>
-        <Form>
-          <FormGroup>
-            <Label for="username">Username</Label>
-            <Input
-              type="text"
-              value={this.state.username}
-              id="username"
-              onChange={this.handleChange}
-            />
-          </FormGroup>
-          <FormGroup>
-            <Label for="password">Password</Label>
-            <Input
-              type="text"
-              value={this.state.password}
-              id="password"
-              onChange={this.handleChange}
-            />
-          </FormGroup>
-          <Button color="primary">Login</Button>
-        </Form>
-      </Card>
+      <Mutation mutation={LOGIN} onCompleted={(data) => this.storeJWT(data)}>
+        { (login, { loading, error }) => (
+          <Card body>
+            { loading && <p> Loading... </p> }
+            { error && <p>Error :( Please try again</p> } 
+
+            <CardTitle>Login</CardTitle>
+            <Form
+              onSubmit={e => {
+                 e.preventDefault();
+                 login({ variables: { username, password} });
+               }}
+            >
+              <FormGroup>
+                <Label for="username">Username</Label>
+                <Input
+                  type="text"
+                  id="username"
+                  value={username}
+                  name="username"
+                  onChange={this.handleChange("username")}
+                />
+              </FormGroup>
+              <FormGroup>
+                <Label for="password">Password</Label>
+                <Input
+                  type="text"
+                  id="password"
+                  value={password}
+                  name="password"
+                  onChange={this.handleChange("password")}
+                />
+              </FormGroup>
+              <Button color="primary">Login</Button>
+            </Form>
+          </Card>
+        )}
+      </Mutation>
     );
   }
 }
-
 export default Login;
