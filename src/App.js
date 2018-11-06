@@ -13,7 +13,7 @@ import UserIndex from './components/UserIndex';
 const link = new HttpLink({ uri: '/graphql' });
 
 const client = new ApolloClient({
-  link,
+  link
   // other options like cache
 });
 
@@ -37,7 +37,6 @@ class App extends Component {
     const jwt = localStorage.getItem('jwt');
     if (jwt) {
       const payload = jwtDecode(jwt);
-      console.log("payload", payload)
       this.setState({user: payload.username});
     }
   }
@@ -74,5 +73,6 @@ class App extends Component {
     );
   }
 }
+
 
 export default App;
