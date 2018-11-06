@@ -11,6 +11,7 @@ import {
   Label
 } from 'reactstrap';
 
+
 const LOGIN = gql`
   mutation Login ($username: String!, $password: String!) {
     login (username: $username, password: $password)
@@ -18,8 +19,9 @@ const LOGIN = gql`
 `
 
 class Login extends Component {
-  constructor(props, context) {
-    super(props, context);
+  constructor(props) {
+    super(props);
+    console.log("ctor props", props)
     this.state = {
       username: "",
       password: ""
@@ -30,8 +32,10 @@ class Login extends Component {
   }
 
   storeJWT (jwt) {
+    const {onSignIn = () => {}, history} = this.props;
     localStorage.setItem('jwt', jwt.login);
-    this.props.history.push('/users');
+    history.push('/users');
+    onSignIn();
   }
 
   handleChange (name) {
@@ -49,7 +53,7 @@ class Login extends Component {
         { (login, { loading, error }) => (
           <Card body>
             { loading && <p> Loading... </p> }
-            { error && <p>Error :( Please try again</p> } 
+            { error && <p>Error :( Please try again</p> }
 
             <CardTitle>Login</CardTitle>
             <Form
