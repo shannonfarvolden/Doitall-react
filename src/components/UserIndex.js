@@ -20,12 +20,6 @@ class UserIndex extends Component {
     };
   }
 
-  renderUsers() {
-    return this.props.data.Users.map(user => {
-      return <li key={user.id}>{user.username}</li>;
-    });
-  }
-
   render() {
     return (
       <Query query={GET_USERS}>

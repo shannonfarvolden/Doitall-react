@@ -3,6 +3,7 @@ import gql from 'graphql-tag';
 import { Mutation } from 'react-apollo';
 import { Button, Card, CardTitle, Form, FormGroup, Input, Label } from 'reactstrap';
 
+
 const LOGIN = gql`
   mutation Login($username: String!, $password: String!) {
     login(username: $username, password: $password)
@@ -10,8 +11,8 @@ const LOGIN = gql`
 `;
 
 class Login extends Component {
-  constructor(props, context) {
-    super(props, context);
+  constructor(props) {
+    super(props);
     this.state = {
       username: '',
       password: ''
@@ -21,9 +22,11 @@ class Login extends Component {
     this.storeJWT = this.storeJWT.bind(this);
   }
 
-  storeJWT(jwt) {
+  storeJWT (jwt) {
+    const {onSignIn = () => {}, history} = this.props;
     localStorage.setItem('jwt', jwt.login);
-    this.props.history.push('/users');
+    history.push('/users');
+    onSignIn();
   }
 
   handleChange(name) {
