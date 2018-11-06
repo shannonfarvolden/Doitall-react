@@ -10,10 +10,10 @@ const GET_USERS = gql`
       email
     }
   }
-`
+`;
 
 class UserIndex extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props);
     this.state = {
       users: []
@@ -22,18 +22,16 @@ class UserIndex extends Component {
 
   renderUsers() {
     return this.props.data.Users.map(user => {
-      return (
-        <li key={user.id}>{user.username}</li>
-      );
-    })
+      return <li key={user.id}>{user.username}</li>;
+    });
   }
 
   render() {
-    return(
+    return (
       <Query query={GET_USERS}>
         {({ loading, error, data }) => {
-          if (loading) return (<div>loading...</div>);
-          if (error) return (<div>error...</div>);
+          if (loading) return <div>loading...</div>;
+          if (error) return <div>error...</div>;
           return (
             <main className="UserIndex">
               <h2>Users</h2>
@@ -46,7 +44,7 @@ class UserIndex extends Component {
           );
         }}
       </Query>
-    )
+    );
   }
 }
 export default UserIndex;
