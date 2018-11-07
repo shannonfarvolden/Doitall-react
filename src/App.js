@@ -9,6 +9,7 @@ import Header from './components/Header';
 import Login from './components/Login';
 import Landing from './components/Landing';
 import UserIndex from './components/UserIndex';
+import NavigationBar from './components/NavigationBar';
 
 const link = new HttpLink({ uri: '/graphql' });
 
@@ -26,10 +27,9 @@ class App extends Component {
 
     this.signIn = this.signIn.bind(this);
     this.signOut = this.signOut.bind(this);
-
   }
 
-  componentDidMount () {
+  componentDidMount() {
     this.signIn();
   }
 
@@ -37,7 +37,7 @@ class App extends Component {
     const jwt = localStorage.getItem('jwt');
     if (jwt) {
       const payload = jwtDecode(jwt);
-      this.setState({user: payload.username});
+      this.setState({ user: payload.username });
     }
   }
 
@@ -45,26 +45,28 @@ class App extends Component {
     const jwt = localStorage.getItem('jwt');
     if (jwt) {
       localStorage.removeItem('jwt');
-      this.setState({user: null});
+      this.setState({ user: null });
     }
   }
 
   render() {
-    const {user} = this.state;
+    const { user } = this.state;
     return (
       <ApolloProvider client={client}>
         <div className="App">
           <BrowserRouter>
             <div>
-              <Header user={user} onSignOut={this.signOut}/>
+              <NavigationBar user={user} onSignOut={this.signOut} />
+              <Header />
               <div className="container">
-              <Switch>
-                <Route exact path="/" component={Landing} />
-                <Route path="/login"
-                  render={ props => <Login {...props} onSignIn={this.signIn} />
-                } />
-                <Route exact path="/users" component={UserIndex} />
-              </Switch>
+                <Switch>
+                  <Route exact path="/" component={Landing} />
+                  <Route
+                    path="/login"
+                    render={props => <Login {...props} onSignIn={this.signIn} />}
+                  />
+                  <Route exact path="/users" component={UserIndex} />
+                </Switch>
               </div>
             </div>
           </BrowserRouter>
@@ -73,6 +75,5 @@ class App extends Component {
     );
   }
 }
-
 
 export default App;
