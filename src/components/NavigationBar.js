@@ -53,7 +53,7 @@ export default class NavigationBar extends React.Component {
                       Groups
                     </DropdownItem>
                     <DropdownItem divider />
-                    <DropdownItem tag={Link} to="/">
+                    <DropdownItem tag={Link} to="/" onClick={onSignOut}>
                       Sign Out
                     </DropdownItem>
                   </DropdownMenu>
