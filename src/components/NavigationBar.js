@@ -49,8 +49,8 @@ export default class NavigationBar extends React.Component {
                     {user}
                   </DropdownToggle>
                   <DropdownMenu right>
-                    <DropdownItem tag={Link} to="/">
-                      Groups
+                    <DropdownItem tag={Link} to="/profile">
+                      Profile
                     </DropdownItem>
                     <DropdownItem divider />
                     <DropdownItem tag={Link} to="/" onClick={onSignOut}>

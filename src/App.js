@@ -8,6 +8,7 @@ import './App.css';
 import Header from './components/Header';
 import Login from './components/Login';
 import Landing from './components/Landing';
+import Profile from './components/Profile';
 import UserIndex from './components/UserIndex';
 import NavigationBar from './components/NavigationBar';
 
@@ -65,6 +66,7 @@ class App extends Component {
                     path="/login"
                     render={props => <Login {...props} onSignIn={this.signIn} />}
                   />
+                  <Route exact path="/profile" render={() => <Profile user={user} />} />
                   <Route exact path="/users" component={UserIndex} />
                 </Switch>
               </div>
