@@ -7,7 +7,6 @@ export default class Profile extends Component {
 
   render() {
     const { user } = this.props;
-    console.log(user);
     return (
       <div>
         <div>Welcome {user}</div>

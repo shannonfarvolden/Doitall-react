@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo';
 import { HttpLink } from 'apollo-link-http';
+import { Container } from 'reactstrap';
 import jwtDecode from 'jwt-decode';
 import './App.css';
 import Header from './components/Header';
@@ -10,6 +11,7 @@ import Login from './components/Login';
 import Landing from './components/Landing';
 import Profile from './components/Profile';
 import UserIndex from './components/UserIndex';
+import GroupIndex from './components/GroupIndex';
 import NavigationBar from './components/NavigationBar';
 
 const link = new HttpLink({ uri: '/graphql' });
@@ -59,7 +61,7 @@ class App extends Component {
             <div>
               <NavigationBar user={user} onSignOut={this.signOut} />
               <Header />
-              <div className="container">
+              <Container>
                 <Switch>
                   <Route exact path="/" component={Landing} />
                   <Route
@@ -68,8 +70,9 @@ class App extends Component {
                   />
                   <Route exact path="/profile" render={() => <Profile user={user} />} />
                   <Route exact path="/users" component={UserIndex} />
+                  <Route exact path="/groups" component={GroupIndex} />
                 </Switch>
-              </div>
+              </Container>
             </div>
           </BrowserRouter>
         </div>
