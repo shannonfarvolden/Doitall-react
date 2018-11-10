@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import ApolloClient from 'apollo-boost';
+import { ApolloClient, ApolloLink, InMemoryCache, HttpLink } from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo';
-import { HttpLink } from 'apollo-link-http';
 import jwtDecode from 'jwt-decode';
 import './App.css';
 import Header from './components/Header';
@@ -11,11 +10,20 @@ import Landing from './components/Landing';
 import UserIndex from './components/UserIndex';
 import NavigationBar from './components/NavigationBar';
 
-const link = new HttpLink({ uri: '/graphql' });
+const httpLink = new HttpLink({ uri: '/graphql' });
+const authLink = new ApolloLink((operation, forward) => {
+  const token = localStorage.getItem('jwt');
+  operation.setContext({
+    headers: {
+      authorization: token ? `Bearer ${token}` : ''
+    }
+  });
+  return forward(operation);
+});
 
 const client = new ApolloClient({
-  link
-  // other options like cache
+  link: authLink.concat(httpLink),
+  cache: new InMemoryCache()
 });
 
 class App extends Component {
