@@ -21,3 +21,7 @@
 .App-intro {
   font-size: large;
 }
+
+.container {
+  margin-top: 50px;
+}
