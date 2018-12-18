@@ -11,6 +11,7 @@ import Landing from './components/Landing';
 import Profile from './components/Profile';
 import UserIndex from './components/UserIndex';
 import GroupIndex from './components/GroupIndex';
+import GroupCreate from './components/GroupCreate';
 import NavigationBar from './components/NavigationBar';
 
 const httpLink = new HttpLink({ uri: '/graphql' });
@@ -79,6 +80,7 @@ class App extends Component {
                   <Route exact path="/profile" render={() => <Profile user={user} />} />
                   <Route exact path="/users" component={UserIndex} />
                   <Route exact path="/groups" component={GroupIndex} />
+                  <Route exact path="/groups/create" component={GroupCreate} />
                 </Switch>
               </Container>
             </div>
